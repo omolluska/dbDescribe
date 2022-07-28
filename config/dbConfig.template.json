@@ -1,0 +1,15 @@
+{
+    "sshTunnel" : {
+        "host"     : "52.77.30.28",
+        "user"     : "<username>",
+        "pem_file" : "<path/to/pem/file>"
+    },
+
+    "mumDB" : {
+        "host"     : "srv-sg-rni-db-prd.cluster-ro-cwdwj6mlmxxe.ap-southeast-1.rds.amazonaws.com",
+        "port"     : 3306,
+        "user"     : "<username>",
+        "password" : "<password>",
+        "database" : "MUM_CONSUMER"
+    }
+}

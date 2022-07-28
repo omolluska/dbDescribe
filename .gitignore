@@ -123,6 +123,16 @@ celerybeat.pid
 .env
 .venv
 env/
+#-----------------------------------------------------------------
+# For this specific project, we are going to ignore the following
+#-----------------------------------------------------------------
+pem_files/*.pem 
+config/dbConfig.json
+
+#-----------------------------------------------------------------
+# The stuff at the bottom are the standard ignores
+#-----------------------------------------------------------------
+
 venv/
 ENV/
 env.bak/
