@@ -27,13 +27,12 @@ def getAllData(query, params=None):
                 password = MUM['password'],
                 database = MUM['database'],
             )
-            with connection.cursor() as cursor:
+            with connection.cursor(pymysql.cursors.DictCursor) as cursor:
                 if params is None:
                     cursor.execute(query)
                 else:
                     cursor.execute(query, params)
                 result = cursor.fetchall()
-                print( result )
         finally:
             connection.close()
 
