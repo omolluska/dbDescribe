@@ -27,7 +27,7 @@ def getForeignKeyInfo(tableName:str) -> pd.DataFrame:
     '''
 
     foreignKeys = mysqlIO.getAllData(
-        query, ('MUM_CONSUMER', tableName)
+        query, ('DIGITAL_SERVICES', tableName)
     )
 
     foreignKeys = pd.DataFrame( 
@@ -58,7 +58,7 @@ def generateTableDetails(tableName:str) -> pd.DataFrame:
 
     tableProperties = mysqlIO.getAllData(
         query, 
-        ('MUM_CONSUMER', tableName)
+        ('DIGITAL_SERVICES', tableName)
     )
 
     tableProperties = pd.DataFrame( tableProperties )
@@ -76,7 +76,7 @@ def getAllTableInfo(problemTables) -> pd.DataFrame:
             where
                 table_schema=%s
         """,
-        ('MUM_CONSUMER',)
+        ('DIGITAL_SERVICES',)
         )
         tableNames = [t['table_name'] for t in tableNames]
     elif len(problemTables) > 0:
@@ -100,7 +100,7 @@ def getAllTableInfo(problemTables) -> pd.DataFrame:
 if __name__ == '__main__':
 
     TUNNEL = dbConfig['sshTunnel']
-    MUM    = dbConfig['mumDB'] 
+    DB    = dbConfig['mumDB'] 
     problemTables = None
     i = 0
 
@@ -108,8 +108,8 @@ if __name__ == '__main__':
         ( TUNNEL['host'], 22),
         ssh_username        = TUNNEL['user'],
         ssh_pkey            = TUNNEL['pem_file'],
-        remote_bind_address = (MUM['host'], MUM['port']),
-        local_bind_address  = ('127.0.0.1', MUM['port']),
+        remote_bind_address = (DB['host'], DB['port']),
+        local_bind_address  = ('127.0.0.1', DB['port']),
     ) as tunnel:
         while problemTables != []:
             
@@ -117,4 +117,4 @@ if __name__ == '__main__':
             allTables, problemTables = getAllTableInfo(problemTables)
             print('saving the results ...')
             now = dt.now().strftime('%Y%m%d%H%M%S')        
-            allTables.to_csv( f'results/MUM_CONSUMER_{now}.csv', index=False )
+            allTables.to_csv( f'results/DIGITAL_SERVICES_{now}.csv', index=False )
